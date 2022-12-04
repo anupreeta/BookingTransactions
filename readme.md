@@ -1,9 +1,10 @@
-Spring Boot Application
+# Booking Transactions 
+A Spring Boot Application to find rejected transactions using spring webflux - reactive API 
 
 Setup:
 =========
 1. Run -> mvn clean install
-2. Run -> java -jar {FOLDER_LOCATION}/target/api-0.0.1-SNAPSHOT.jar
+2. Run -> java -jar {FOLDER_LOCATION}/target/api-0.0.1-SNAPSHOT.jar or mvn spring-boot:run
 
 Testing:
 =======
@@ -37,10 +38,6 @@ Dockerize the Application
 =========================
 1. Run -> docker build --tag=api-server:latest .
 2. Run -> docker run -it -p 8080:8080 api-server
-
-Note :
-To export the docker image, run command -> docker save -o app.tar  api-server
-To load the docker image, run command -> docker load app.tar
 
 
 ### Assumptions
