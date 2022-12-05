@@ -1,28 +1,64 @@
 # API to check rejected transactions 
 A Spring Boot Application to find rejected transactions using spring webflux - reactive API 
 
-Setup:
-=========
+## Setup:
 1. Run -> mvn clean install
 2. Run -> java -jar {FOLDER_LOCATION}/target/api-0.0.1-SNAPSHOT.jar or mvn spring-boot:run
 
-Testing:
-=======
+## Testing:
+
 To Send a list of transactions for processing, send a POST request with JSON body as below
 
 localhost:8080/process
 
-Sample Body:
+### Request Body
+````````````
 [
 "John,Doe,john@doe.com,190,TR0001",
 "John,Doe1,john@doe1.com,200,TR0001",
 "John,Doe2,john@doe2.com,201,TR0003",
 "John,Doe,john@doe.com,9,TR0004",
-"John,Doe,john@doe.com,2,TR0005"
+"John,Doe,john@doe.com,2,TR0005",
+"John,Doe,john@doe.com,19,TR0006",
+"John,Doe2,john@doe2.com,201,TR0007"
 ]
+````````````
+
+### Response Body
+``````````````
+{
+    "rejectedTransactions": [
+        {
+            "firstName": "John",
+            "lastName": "Doe2",
+            "email": "john@doe2.com",
+            "transactionId": "TR0003"
+        },
+        {
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john@doe.com",
+            "transactionId": "TR0005"
+        },
+        {
+            "firstName": "John",
+            "lastName": "Doe",
+            "email": "john@doe.com",
+            "transactionId": "TR0006"
+        },
+        {
+            "firstName": "John",
+            "lastName": "Doe2",
+            "email": "john@doe2.com",
+            "transactionId": "TR0007"
+        }
+    ]
+}
+``````````````
 
 Sample Curl request:
 
+``````````
 curl --location --request POST 'localhost:8080/process' \
 --header 'Content-Type: application/json' \
 --data-raw '[
@@ -32,12 +68,14 @@ curl --location --request POST 'localhost:8080/process' \
 "John,Doe,john@doe.com,9,TR0004",
 "John,Doe,john@doe.com,2,TR0005"
 ]'
+```````````
 
 ### Testing with Swagger UI
 
 http://localhost:8080/swagger-ui/index.html#/transaction-controller
 
 Try to send a post request to endpoint process with the below given sample body.
+````````
 [
 "John,Doe,john@doe.com,190,TR0001",
 "John,Doe1,john@doe1.com,200,TR0001",
@@ -45,6 +83,7 @@ Try to send a post request to endpoint process with the below given sample body.
 "John,Doe,john@doe.com,9,TR0004",
 "John,Doe,john@doe.com,2,TR0005"
 ]
+````````
 
 Dockerize the Application
 =========================
